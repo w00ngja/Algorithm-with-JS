@@ -86,7 +86,7 @@ function App() {
               copy[i] = copy[i] + 1;
               setLike(copy);
             }}
-          > 
+          >
             <h4>
               {context[i]} <span> 👍 {like[i]}</span>
             </h4>
@@ -96,11 +96,13 @@ function App() {
         );
       })}
 
+      {/* 삼항연산 조건을 통한 모달창 출력 */}
       {modal === false ? <Modal></Modal> : null}
     </div>
   );
 }
 
+// 모달 컴포넌트 생성
 function Modal() {
   return (
     <div className="Modal">
