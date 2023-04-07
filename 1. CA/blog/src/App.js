@@ -32,7 +32,7 @@ function App() {
         글 정렬
       </button>
 
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {context[0]}{" "}
           <span
@@ -46,9 +46,9 @@ function App() {
           {like[0]}
         </h4>
         <p>2023년 4월 5일</p>
-      </div>
+      </div> */}
 
-      <div className="list">
+      {/* <div className="list">
         <h4
           onClick={() => {
             // setContext(["떡볶이 맛집", "우리동네 규동 맛집", "소금빵 맛집"]);
@@ -61,9 +61,9 @@ function App() {
           {context[1]}
         </h4>
         <p>2023년 4월 5일</p>
-      </div>
+      </div> */}
 
-      <div className="list">
+      {/* <div className="list">
         <h4
           // Boolean 제어를 통한 모달창 토글
           onClick={() => {
@@ -73,22 +73,28 @@ function App() {
           {context[2]}
         </h4>
         <p>2023년 4월 5일</p>
-      </div>
+      </div> */}
 
       {/* map함수를 통한 State 바인딩 */}
       {context.map(function (item, i) {
         return (
-          <div
-            className="list"
-            key={i}
-            onClick={() => {
-              let copy = [...like];
-              copy[i] = copy[i] + 1;
-              setLike(copy);
-            }}
-          >
-            <h4>
-              {context[i]} <span> 👍 {like[i]}</span>
+          <div className="list" key={i}>
+            <h4
+              onClick={() => {
+                setModal(!modal);
+              }}
+            >
+              {context[i]}{" "}
+              <span
+                onClick={() => {
+                  let copy = [...like];
+                  copy[i] = copy[i] + 1;
+                  setLike(copy);
+                }}
+              >
+                {" "}
+                👍 {like[i]}
+              </span>
             </h4>
 
             <p>2023년 4월 5일</p>
@@ -97,18 +103,34 @@ function App() {
       })}
 
       {/* 삼항연산 조건을 통한 모달창 출력 */}
-      {modal === false ? <Modal></Modal> : null}
+      {modal === false ? (
+        <Modal
+          setContext={setContext}
+          color={"skyblue"}
+          context={context}
+        ></Modal>
+      ) : null}
     </div>
   );
 }
 
 // 모달 컴포넌트 생성
-function Modal() {
+function Modal(props) {
   return (
-    <div className="Modal">
-      <h4>제목</h4>
+    <div className="Modal" style={{ background: props.color }}>
+      <h4>{props.context[0]}</h4>
       <p>날짜</p>
       <p>내용</p>
+      <button
+        onClick={() => {
+          // 글수정 버튼 클릭 시 제목 바뀌게, 근데 Array들 엮여서 좀 이상하게 돌아감
+          let copy = [...props.context];
+          copy[0] = "우리동네 치즈맛집";
+          props.setContext(copy);
+        }}
+      >
+        글수정
+      </button>
     </div>
   );
 }
