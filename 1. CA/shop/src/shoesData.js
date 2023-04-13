@@ -1,6 +1,6 @@
 let data = [
   {
-    id: 0,
+    productId: 0,
     title: "Meat",
     content: "Very Fresh",
     price: "12,000₩ / kg",
@@ -8,7 +8,7 @@ let data = [
   },
 
   {
-    id: 1,
+    productId: 1,
     title: "Carrot",
     content: "Very Hard",
     price: "1,100₩ / per",
@@ -16,7 +16,7 @@ let data = [
   },
 
   {
-    id: 2,
+    productId: 2,
     title: "Lettuce",
     content: "Very Greenery",
     price: "2,300₩ / per",
