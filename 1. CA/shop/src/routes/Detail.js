@@ -21,8 +21,18 @@ function Detail(props) {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      setFade("");
+    };
+  }, []);
+
   let { productId } = useParams();
   let 찾은상품 = props.shoes.find((x) => x.id == productId);
+  let [fade, setFade] = useState("");
 
   // Styled Componenets 선언
   let YellowBtn = styled.button`
@@ -39,7 +49,7 @@ function Detail(props) {
         </Alert>
       ) : null}
 
-      <Row>
+      <Row className={"start " + fade}>
         <Col md>
           <img src={찾은상품.imgPath} width="60%" />
         </Col>

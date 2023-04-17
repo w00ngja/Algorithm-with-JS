@@ -21,6 +21,7 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let [clickCount, setClickCount] = useState(0);
   let [moreBtn, setMoreBtn] = useState(true);
+  let [tab, setTab] = useState(0);
   let navigate = useNavigate();
 
   return (
@@ -28,7 +29,9 @@ function App() {
       <Navbar variant="dark" className="navBar">
         <Container>
           <Navbar.Brand
-            href="#home"
+            onClick={() => {
+              navigate("/");
+            }}
             style={{
               fontWeight: "800",
             }}
@@ -124,7 +127,20 @@ function App() {
           }
         />
         <Route path="/detail/" />
-        <Route path="/detail/:productId" element={<Detail shoes={shoes} />} />
+        <Route
+          path="/detail/:productId"
+          element={
+            <>
+              <Container>
+                {" "}
+                <Detail shoes={shoes} />
+                <Tab tab={tab} setTab={setTab}></Tab>
+                {/* 배열에 담아 놓은 HTML 내용을 tab State에 따라 출력 */}
+                <div className="start end">{[<div>내용1</div>, <div>내용2</div>, <div>내용3</div>][tab]}</div>
+              </Container>
+            </>
+          }
+        />
       </Routes>
     </div>
   );
@@ -148,6 +164,45 @@ function Thumbnail(props) {
         <p>{props.shoes[props.idx].price}</p>
       </div>
     </Col>
+  );
+}
+
+// 20230417
+// Deatail 페이지 : 상품 탭 구현
+function Tab(props) {
+  return (
+    <Nav fill variant="tabs" defaultActiveKey="link-1" style={{ paddingLeft: "40px", paddingRight: "40px", marginTop: "30px" }}>
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => {
+            props.setTab(0);
+          }}
+          eventKey="link-1"
+        >
+          버튼1
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => {
+            props.setTab(1);
+          }}
+          eventKey="link-2"
+        >
+          버튼2
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => {
+            props.setTab(2);
+          }}
+          eventKey="link-3"
+        >
+          버튼3
+        </Nav.Link>
+      </Nav.Item>
+    </Nav>
   );
 }
 
