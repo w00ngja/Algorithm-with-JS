@@ -3,10 +3,19 @@ import { useEffect, useState } from "react";
 import { Button, Navbar, Container, Nav, Row, Col, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { changeName, addStock, subStock, pushStock } from "../store";
+import { useDispatch, useSelector } from "react-redux";
 
 function Detail(props) {
   let [alert, setAlert] = useState(true);
+  let [alert2, setAlert2] = useState(false);
   let [count, setCount] = useState(0);
+
+  let State = useSelector((state) => {
+    return state;
+  });
+
+  let dispatch = useDispatch();
 
   useEffect(() => {
     // 해당 컴포넌트가 호출(Mount), 갱신(Update)될 때 실행되는 코드블럭
@@ -30,8 +39,16 @@ function Detail(props) {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setAlert2(false);
+    }, 4000);
+    return () => {};
+  }, [alert2]);
+
   let { productId } = useParams();
   let 찾은상품 = props.shoes.find((x) => x.id == productId);
+  let 장바구니대조 = State.stock.find((x) => x.id == productId);
   let [fade, setFade] = useState("");
 
   // Styled Componenets 선언
@@ -49,9 +66,15 @@ function Detail(props) {
         </Alert>
       ) : null}
 
+      {alert2 === true ? (
+        <Alert key={"success"} variant={"success"}>
+          장바구니에 해당 상품을 추가하였습니다.
+        </Alert>
+      ) : null}
+
       <Row className={"start " + fade}>
         <Col md>
-          <img src={찾은상품.imgPath} width="60%" />
+          <img src={찾은상품.imgPath} width="50%" style={{ marginTop: "30px" }} />
         </Col>
         <Col
           md
@@ -66,7 +89,22 @@ function Detail(props) {
           <h4>{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}</p>
-          <YellowBtn bg="blue">주문하기</YellowBtn>
+          <YellowBtn
+            onClick={() => {
+              if (장바구니대조) {
+                dispatch(addStock(찾은상품.id));
+                setAlert2(true);
+              } else {
+                console.log("장바구니에 해당상품이 없어요");
+                let tempObj = { id: 찾은상품.id, name: 찾은상품.title, count: 1 };
+                dispatch(pushStock(tempObj));
+                setAlert2(true);
+              }
+            }}
+            bg="blue"
+          >
+            장바구니 담기
+          </YellowBtn>
         </Col>
       </Row>
     </Container>

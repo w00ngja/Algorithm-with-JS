@@ -15,6 +15,7 @@ import { Button, Navbar, Container, Nav, Row, Col, Alert } from "react-bootstrap
 
 // 외부 컴포넌트 Import 시 중괄호 뗄 것
 import Detail from "./routes/Detail.js";
+import Cart from "./routes/Cart.js";
 
 function App() {
   // Export / Import를 통한 오브젝트 데이터 반입
@@ -55,10 +56,10 @@ function App() {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/event");
+                navigate("/cart");
               }}
             >
-              Event
+              Cart
             </Nav.Link>
           </Nav>
         </Container>
@@ -126,7 +127,6 @@ function App() {
             </>
           }
         />
-        <Route path="/detail/" />
         <Route
           path="/detail/:productId"
           element={
@@ -138,6 +138,15 @@ function App() {
                 {/* 배열에 담아 놓은 HTML 내용을 tab State에 따라 출력 */}
                 <div className="start end">{[<div>내용1</div>, <div>내용2</div>, <div>내용3</div>][tab]}</div>
               </Container>
+            </>
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <>
+              <Cart></Cart>
             </>
           }
         />
