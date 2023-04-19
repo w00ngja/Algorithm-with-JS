@@ -13,6 +13,7 @@ import { useState } from "react";
 // Bootstrap Components Import
 import { Button, Navbar, Container, Nav, Row, Col, Alert } from "react-bootstrap";
 
+import { useQuery } from "react-query";
 // 외부 컴포넌트 Import 시 중괄호 뗄 것
 import Detail from "./routes/Detail.js";
 import Cart from "./routes/Cart.js";
@@ -24,6 +25,16 @@ function App() {
   let [moreBtn, setMoreBtn] = useState(true);
   let [tab, setTab] = useState(0);
   let navigate = useNavigate();
+
+  let result = useQuery("작명", () =>
+    axios.get("https://codingapple1.github.io/userdata.json").then((a) => {
+      return a.data;
+    })
+  );
+
+  console.log(result.isLoading);
+  let recent = { name: "kim" };
+  localStorage.setItem("data", JSON.stringify(recent));
 
   return (
     <div className="App">
@@ -62,6 +73,7 @@ function App() {
               Cart
             </Nav.Link>
           </Nav>
+          <Nav className="me-auto">{result.isLoading ? <h3>로딩중입니다</h3> : result.data.name}</Nav>
         </Container>
       </Navbar>{" "}
       {/*  */}
