@@ -1,0 +1,15 @@
+.profile {
+  width: 300px;
+  text-align: center;
+
+  background-color: skyblue;
+  padding: 1rem;
+
+  box-shadow: ;
+}
+
+.thumbnail {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
