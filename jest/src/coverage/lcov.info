@@ -1,5 +1,5 @@
 TN:
-SF:src/basic/add.js
+SF:basic/add.js
 FN:1,add
 FNF:1
 FNH:1
@@ -16,7 +16,7 @@ BRF:1
 BRH:1
 end_of_record
 TN:
-SF:src/basic/async.js
+SF:basic/async.js
 FN:1,fetchProduct
 FNF:1
 FNH:1
@@ -38,7 +38,7 @@ BRF:3
 BRH:3
 end_of_record
 TN:
-SF:src/basic/calculator.js
+SF:basic/calculator.js
 FN:2,Calculator
 FN:6,set
 FN:10,clear
